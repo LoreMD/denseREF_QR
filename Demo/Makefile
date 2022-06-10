@@ -9,7 +9,7 @@
 
 default: all
 
-SUITESPARSE ?= $(realpath $(CURDIR)../SPEX-1.1.2/SuiteSparse_config)
+SUITESPARSE ?= $(realpath $(CURDIR)/../SPEX-1.1.2/)
 include ../SPEX-1.1.2/SuiteSparse_config/SuiteSparse_config.mk
 
 # uncomment for extra error checking:
@@ -22,8 +22,8 @@ I = -I../Include -I../Source -I../SPEX-1.1.2/SuiteSparse_config \
 -I../SPEX-1.1.2/COLAMD/Include -I../SPEX-1.1.2/AMD/Include \
 -I../SPEX-1.1.2/SPEX/SPEX_Util/Source -I../SPEX-1.1.2/SPEX/SPEX_Util/Include -I../SPEX-1.1.2/SPEX/SPEX_Util/Lib
 
-LDLIBS += -lm  -L../SPEX-1.1.2/SuiteSparse_config/lib/ -lsuitesparseconfig -lgmp -lmpfr -lcolamd \
--lamd -L../SPEX-1.1.2/SPEX/SPEX_Util/Lib/ -lspexutil -L../Lib/ -lspexqr
+LDLIBS += -lm  -L../SPEX-1.1.2/lib -lsuitesparseconfig -lgmp -lmpfr -lcolamd \
+-lamd -L../SPEX-1.1.2/SPEX/SPEX_Util/Lib -lspexutil -L../Lib/ -lspexqr
 
 CS = ../Lib/libspexqr.a $(LDLIBS)
 
