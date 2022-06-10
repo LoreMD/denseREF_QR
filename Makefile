@@ -21,6 +21,7 @@ demos: all
 
 # compile the dynamic library only, and then run the demos
 C:
+	( cd SPEX-1.1.2 ; $(MAKE) )
 	( cd Lib ; $(MAKE) )
 	( cd Demo ; $(MAKE) )
 

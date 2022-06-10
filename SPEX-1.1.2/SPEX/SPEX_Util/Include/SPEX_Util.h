@@ -599,11 +599,13 @@ SPEX_info SPEX_mpz_set_q (mpz_t x, const mpq_t y) ;
 
 SPEX_info SPEX_mpz_mul (mpz_t a, const mpz_t b, const mpz_t c) ;
 
-#if 0
+
 SPEX_info SPEX_mpz_add (mpz_t a, const mpz_t b, const mpz_t c) ;
 
 SPEX_info SPEX_mpz_addmul (mpz_t x, const mpz_t y, const mpz_t z) ;
-#endif
+
+SPEX_info SPEX_mpz_sub (mpz_t a, const mpz_t b, const mpz_t c) ;
+
 
 SPEX_info SPEX_mpz_submul (mpz_t x, const mpz_t y, const mpz_t z) ;
 

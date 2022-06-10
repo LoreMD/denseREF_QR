@@ -9,21 +9,21 @@
 
 default: all
 
-SUITESPARSE ?= $(realpath $(CURDIR)/../../..)
-include ../../../SuiteSparse_config/SuiteSparse_config.mk
+SUITESPARSE ?= $(realpath $(CURDIR)../SPEX-1.1.2/SuiteSparse_config)
+include ../SPEX-1.1.2/SuiteSparse_config/SuiteSparse_config.mk
 
 # uncomment for extra error checking:
-#CFLAGS += -Wall -Wextra -Wpedantic -Werror
+# CFLAGS += -Wall -Wextra -Wpedantic -Werror
 
-PATH_TO_SPEX=-Wl,-rpath,"../SPEX-1.1.2/SPEX/lib"
+PATH_TO_SPEX=-Wl,-rpath,"../SPEX-1.1.2/SPEX/lib" #should probably delete this, probably unecessary
 PATH_TO_SPEX_Util=-Wl,-rpath,"../SPEX-1.1.2/SPEX/SPEX_Util/Lib"
-CF = $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) $(PATH_TO_SPEX) $(PATH_TO_SPEX_Util) -O2
+CF = $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) $(PATH_TO_SPEX_Util) -O2
 I = -I../Include -I../Source -I../SPEX-1.1.2/SuiteSparse_config \
 -I../SPEX-1.1.2/COLAMD/Include -I../SPEX-1.1.2/AMD/Include \
 -I../SPEX-1.1.2/SPEX/SPEX_Util/Source -I../SPEX-1.1.2/SPEX/SPEX_Util/Include -I../SPEX-1.1.2/SPEX/SPEX_Util/Lib
 
-LDLIBS += -lm -lsuitesparseconfig -lgmp -lmpfr -lcolamd \
--lamd -L../SPEX-1.1.2/SPEX/SPEX_Util/Lib/ -lspexutil 
+LDLIBS += -lm  -L../SPEX-1.1.2/SuiteSparse_config/lib/ -lsuitesparseconfig -lgmp -lmpfr -lcolamd \
+-lamd -L../SPEX-1.1.2/SPEX/SPEX_Util/Lib/ -lspexutil -L../Lib/ -lspexqr
 
 CS = ../Lib/libspexqr.a $(LDLIBS)
 

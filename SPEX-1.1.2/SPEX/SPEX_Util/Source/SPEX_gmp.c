@@ -790,7 +790,7 @@ SPEX_info SPEX_mpz_mul
     return (SPEX_OK) ;
 }
 
-#if 0
+
 //------------------------------------------------------------------------------
 // SPEX_mpz_add
 //------------------------------------------------------------------------------
@@ -830,7 +830,22 @@ SPEX_info SPEX_mpz_addmul
     return (SPEX_OK) ;
 }
 
-#endif
+/* Purpose: Safely compute a = b-c */
+
+SPEX_info SPEX_mpz_sub
+(
+    mpz_t a,
+    const mpz_t b,
+    const mpz_t c
+)
+{
+    SPEX_GMPZ_WRAPPER_START (a) ;
+    mpz_sub (a,b,c) ;
+    SPEX_GMP_WRAPPER_FINISH ;
+    return (SPEX_OK) ;
+}
+
+
 
 //------------------------------------------------------------------------------
 // SPEX_mpz_submul

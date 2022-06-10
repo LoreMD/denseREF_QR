@@ -20,7 +20,7 @@ SO_VERSION = 1
 
 default: library
 
-SUITESPARSE ?= $(realpath $(CURDIR)/../../..)
+SUITESPARSE ?= $(realpath $(CURDIR)../SPEX-1.1.2/SuiteSparse_config)
 include ../SPEX-1.1.2/SuiteSparse_config/SuiteSparse_config.mk
 
 
@@ -30,9 +30,10 @@ PATH_TO_SPEX=-Wl,-rpath, "../SPEX-1.1.2/lib/"
 PATH_TO_SPEX_Util=-Wl,-rpath,"../SPEX-1.1.2/SPEX/SPEX_Util/Lib"
 CF = $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) $(PATH_TO_SPEX) $(PATH_TO_SPEX_Util) -O2
 # SPEX_QR depends on SuiteSparse_config, AMD, COLAMD, M, GMP, and MPFR
-LDLIBS += -L../SPEX-1.1.2/lib/ -lsuitesparseconfig -lamd -lcolamd -lspexutil -lm -lgmp -lmpfr
+LDLIBS += -L../SPEX-1.1.2/lib/ -lsuitesparseconfig -lamd -lcolamd -lm -lgmp -lmpfr -L../SPEX-1.1.2/SPEX/SPEX_Util/Lib -lspexutil
 
-C = $(CC) $(CF) -g -I../Include -I../SPEX-1.1.2/COLAMD/Include -I../SPEX-1.1.2/AMD/Include -I../SPEX-1.1.2/SuiteSparse_config -I../SPEX-1.1.2/SPEX/SPEX_Util/Source -I../SPEX-1.1.2/SPEX/SPEX_Util/Include -I../SPEX-1.1.2/SPEX/SPEX_Util/Lib
+C = $(CC) $(CF) -g -I../Include -I../SPEX-1.1.2/COLAMD/Include -I../SPEX-1.1.2/AMD/Include -I../SPEX-1.1.2/SuiteSparse_config \
+-I../SPEX-1.1.2/SPEX/SPEX_Util/Source -I../SPEX-1.1.2/SPEX/SPEX_Util/Include -I../SPEX-1.1.2/SPEX/SPEX_Util/Lib
 
 all: install
 
@@ -43,6 +44,8 @@ OBJ = \
      SPEX_QR_GS.o SPEX_QR_transGS.o SPEX_QR_genGS.o \
 
 $(OBJ): ../Include/SPEX_QR.h Makefile
+
+
 
 %.o: ../Source/%.c ../Include/SPEX_QR.h 
 	$(C) $(I) -c $<
@@ -71,7 +74,7 @@ $(INSTALL_LIB)/$(SO_TARGET): $(OBJ)
 	@mkdir -p $(INSTALL_LIB)
 	@mkdir -p $(INSTALL_INCLUDE)
 	@mkdir -p $(INSTALL_DOC)
-	$(CC) $(SO_OPTS) $^ -o $@ $(LDLIBS)
+	$(CC) -L/home/lorenamd/Documents/RESEARCH/dense_REFQR/Lib $(SO_OPTS) $^ -o ../Lib/libspexqr.so.1.0.1 $(LDLIBS)
 	( cd $(INSTALL_LIB) ; ln -sf $(SO_TARGET) $(SO_PLAIN) )
 	( cd $(INSTALL_LIB) ; ln -sf $(SO_TARGET) $(SO_MAIN) )
 	$(CP) ../Include/SPEX_QR.h $(INSTALL_INCLUDE)
